@@ -50,3 +50,6 @@ def load_config(path: str = None):
         ),
         misc=Miscellaneous()
     )
+
+
+config = load_config('../.env')

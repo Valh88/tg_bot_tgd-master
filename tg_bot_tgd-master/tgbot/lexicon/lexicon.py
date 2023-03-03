@@ -5,3 +5,12 @@ COMMANDS: Dict[str, str] = {
     'test2': 'test command2',
     'test3': 'test command3',
 }
+
+COMMANDS_FULL: Dict[str, str] = {
+    '/start': 'Старт!',
+    '/bay': 'купить',
+}
+
+ADMIN_COMMANDS: Dict[str, str] = {
+    '/admin': 'adminka',
+}

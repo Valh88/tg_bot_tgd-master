@@ -1,5 +1,9 @@
-aiogram~=2.18
+# aiogram~=2.18
+aiogram==3.0.0b7
+redis==4.5.1
 aioredis<2.0
 environs~=9.0
 sqlalchemy==2.0.4
 asyncpg==0.27.0
+alembic==1.9.4
+psycopg2-binary==2.9.5

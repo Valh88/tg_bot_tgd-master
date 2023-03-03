@@ -11,14 +11,19 @@ services:
     volumes:
     - ./tg_bot_tgd-master/:/usr/src/app/${BOT_NAME:-tg_bot}
     command: python3 -m bot
-    restart: always
+#    restart: always
+    depends_on:
+      - db
     env_file:
       - ".env"
+    links:
+      - db:db
     networks:
     - tg_bot
 
   db:
     image: postgres:12-alpine
+    container_name: "db"
     restart: always
     environment:
       POSTGRES_USER: ${DB_USER}
@@ -28,27 +33,31 @@ services:
       - 5432:5432
     volumes:
       - "./postgres_data:/var/lib/postgresql/data/"
-#    healthcheck:
-#      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
-#      interval: 5s
-#      timeout: 5s
-#      retries: 5
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     env_file:
       - ".env"
+    networks:
+      - tg_bot
 
-  pgadmin:
-    image: dpage/pgadmin4
-    depends_on:
-      - db
-    environment:
-      - PGADMIN_LISTEN_ADDRESS=0.0.0.0
-      - PGADMIN_LISTEN_PORT=5050
-      - PGADMIN_DEFAULT_EMAIL=test@example.com
-      - PGADMIN_DEFAULT_PASSWORD=1
-    ports:
-      - 5050:5050
-#    volumes:
-    #      - "/path/to/your/pgadmin/directory:/var/lib/pgadmin"
+#  pgadmin:
+#    image: dpage/pgadmin4
+#    depends_on:
+#      - db
+#    environment:
+#      - PGADMIN_LISTEN_ADDRESS=0.0.0.0
+#      - PGADMIN_LISTEN_PORT=5050
+#      - PGADMIN_DEFAULT_EMAIL=test@example.com
+#      - PGADMIN_DEFAULT_PASSWORD=1
+#    ports:
+#      - 5050:5050
+##    volumes:
+##          - "./pgadmin:/var/lib/pgadmin"
+#    networks:
+#      - tg_bot
 
 networks:
   tg_bot:
