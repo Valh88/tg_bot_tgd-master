@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from environs import Env
 
-CURRENCIES = ['TestTON', 'TestSCALE']
+PRICE: int = 100
 
 
 @dataclass

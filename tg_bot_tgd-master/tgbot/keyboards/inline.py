@@ -23,3 +23,17 @@ def create_inline_kb(width: int,
     kb_builder.row(*buttons, width=width)
 
     return kb_builder.as_markup()
+
+
+def button_bay(url: str) -> InlineKeyboardMarkup:
+    button: InlineKeyboardButton = InlineKeyboardButton(
+        text='купить!',
+        url=url
+    )
+    keyboard: InlineKeyboardMarkup = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [button],
+        ]
+    )
+
+    return keyboard

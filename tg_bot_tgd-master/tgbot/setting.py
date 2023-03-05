@@ -1,0 +1,2 @@
+
+CURRENCIES = ['TONCOIN', 'SCALE']

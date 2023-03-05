@@ -32,6 +32,6 @@ BUTTON_NEW: Dict[str, str] = {
 }
 
 CURRENCIES: Dict[str, str] = {
-    'TestTON': 'TestTON',
-    'TestSCALE': 'TestSCALE',
+    'TONCOIN': 'TestTON',
+    'SCALE': 'TestSCALE',
 }
