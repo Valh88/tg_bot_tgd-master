@@ -28,7 +28,7 @@ async def create_invoice_tg(
         description: str = 'n items',
         hidden_message: str = "thank you",
         callback_url: str = None,
-        expired_in: int = 3000,
+        # expired_in: int = 86200,
 ):
 
     """ Одноразовая платежка """
@@ -40,9 +40,17 @@ async def create_invoice_tg(
             'amount': amount,
             'currency': currency,
             'description': description,
-            'hidden_message': hidden_message,
+            'hiddenMessage': hidden_message,
             'callbackUrl': callback_url,
-            'expired_in': expired_in,
+            # 'expiredIn': expired_in,
         }
         res = await session.post(url=url, data=data, headers=headers)
         return await res.json()
+
+
+async def get_all_currencies():
+    url = 'https://dev-pay.ton-rocket.com/currencies/available'
+    async with aiohttp.ClientSession() as session:
+        res = await session.get(url=url, headers=headers)
+    return await res.json()
+

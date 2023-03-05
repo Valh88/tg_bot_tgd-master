@@ -4,8 +4,11 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
+import sys
+import os
+# sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from models import models
-
+from config import config as conf
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -19,7 +22,11 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-config.set_main_option("sqlalchemy.url", "postgresql+psycopg2://postgres:postgres@127.0.0.1/postgres")
+"postgresql+psycopg2://postgres:postgres@127.0.0.1/postgres"
+config.set_main_option(
+    "sqlalchemy.url",
+    f"postgresql+psycopg2://{conf.db.user}:{conf.db.password}@{conf.db.host}/{conf.db.database}"
+)
 target_metadata = models.Base.metadata
 
 # other values from the config, defined by the needs of env.py,
