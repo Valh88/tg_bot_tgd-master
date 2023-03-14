@@ -28,10 +28,16 @@ def create_session(config):
     return Session()
 
 
+def sqlite_connect():
+    engine = create_engine('sqlite:///./db.sqlite/', echo=True)
+    Session = sessionmaker(bind=engine)
+    return Session()
+
+
 conf = load_config()
-Base = declarative_base()
 
-
+# engine = create_engine('sqlite:///./db.sqlite/', echo=True)
+# session = sqlite_connect()
 session = create_session(conf)
 # async_session = create_pool(conf)
 # async_session = async_session()

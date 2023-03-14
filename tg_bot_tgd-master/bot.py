@@ -8,11 +8,16 @@ from tgbot.handlers import echo
 from tgbot.handlers import user
 from tgbot.config import config
 from tgbot.keyboards.main_menu import main_menu
+from tgbot.middlewares.config_middleware import BaseMiddleware, CallbackMiddleware, ThrottlingMiddleware
 
+# from tgbot.models.base import engine
+# from tgbot.models.models import Base
 logger = logging.getLogger(__name__)
 
 
 async def main():
+    # Base.metadata.create_all(bind=engine)
+
     logging.basicConfig(
         level=logging.INFO,
         format=u'%(filename)s:%(lineno)d #%(levelname)-8s [%(asctime)s] - %(name)s - %(message)s',
@@ -31,7 +36,7 @@ async def main():
     dp: Dispatcher = Dispatcher(storage=storage)
     dp.include_router(echo.router)
     dp.include_router(user.router)
-
+    dp.callback_query.middleware(ThrottlingMiddleware())
     # start
     try:
         await bot.delete_webhook(drop_pending_updates=True)
